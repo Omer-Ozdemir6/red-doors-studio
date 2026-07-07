@@ -7,7 +7,7 @@ function CareersSection() {
       id="careers"
       data-scroll
       data-scroll-call="careers"
-      data-scroll-repeat="true"
+      data-scroll-repeat="false"
       data-scroll-progress
       className="progress-section relative overflow-hidden bg-black px-5 py-24 md:px-10 md:py-32"
     >
@@ -22,7 +22,7 @@ function CareersSection() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94),rgba(0,0,0,0.64),rgba(0,0,0,0.96))]" />
 
-      <SectionReveal className="relative mx-auto max-w-[1600px]">
+      <SectionReveal style="type" className="relative mx-auto max-w-[1600px]">
         <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-red-600">
           Careers
         </p>
@@ -30,8 +30,8 @@ function CareersSection() {
           Looking for new nightmares? Join us.
         </h2>
         <p className="mb-10 max-w-2xl text-lg leading-8 text-zinc-300">
-          Red Doors Studio atmosfer, hikaye, ses ve oyun hissini aynı masada
-          düşünen yaratıcı ekip arkadaşları arıyor.
+          Red Doors Studio atmosfer, hikaye, ses ve oyun hissini ayni masada
+          dusunen yaratici ekip arkadaslari ariyor.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row">
           <a

@@ -10,9 +10,12 @@ class HeroManager {
     this.heroes = gsap.utils.toArray("[data-hero]").map((el) => {
       const media = el.querySelector("[data-hero-media]");
       const title = el.querySelector("[data-hero-title]");
-      const ghost = el.querySelector("[data-hero-ghost]");
+      const words = gsap.utils.toArray("[data-hero-word]", el);
       const cta = el.querySelector("[data-hero-cta]");
       const scrollLabel = el.querySelector("[data-hero-scroll-label]");
+      const cinema = el.querySelector("[data-hero-cinema]");
+      const sweep = el.querySelector("[data-hero-sweep]");
+      const distortion = el.querySelector("[data-hero-distortion]");
       const quickX = media ? gsap.quickTo(media, "x", { duration: 0.85, ease: "power3.out" }) : null;
       const quickY = media ? gsap.quickTo(media, "y", { duration: 0.85, ease: "power3.out" }) : null;
 
@@ -36,46 +39,119 @@ class HeroManager {
         });
       }
 
-      if (title) {
+      if (cinema) {
+        gsap.fromTo(cinema, { autoAlpha: 0 }, { autoAlpha: 0.72, duration: 1.2, delay: 0.3, ease: "linear" });
+        gsap.to(cinema, {
+          backgroundPosition: "72% 42%, 18% 70%, 50% 50%",
+          duration: 9,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+        });
+        gsap.to(cinema, {
+          autoAlpha: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      if (sweep) {
+        gsap.fromTo(sweep, { autoAlpha: 0, xPercent: -80 }, { autoAlpha: 0.55, xPercent: 80, duration: 2.8, delay: 0.6, ease: "expo.inOut" });
+        gsap.to(sweep, {
+          xPercent: 120,
+          autoAlpha: 0.18,
+          duration: 7,
+          repeat: -1,
+          repeatDelay: 2.5,
+          ease: "sine.inOut",
+        });
+      }
+
+      if (distortion) {
+        gsap.fromTo(distortion, { autoAlpha: 0 }, { autoAlpha: 0.34, duration: 0.7, delay: 0.45 });
+        gsap.to(distortion, {
+          x: 18,
+          duration: 0.12,
+          repeat: -1,
+          yoyo: true,
+          ease: "steps(1)",
+        });
+      }
+
+      if (title && words.length) {
         gsap.fromTo(
-          title,
-          { xPercent: 0, clipPath: "inset(0 0 100% 0)" },
+          words,
+          { autoAlpha: 0, y: 44, filter: "blur(10px)" },
           {
-            clipPath: "inset(0 0 0% 0)",
-            duration: 0.95,
-            delay: 0.12,
+            autoAlpha: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.9,
+            delay: 0.18,
+            stagger: 0.08,
             ease: "expo.out",
           },
         );
 
-        gsap.to(title, {
-          xPercent: -18,
-          ease: "none",
+        const mergeTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: el,
             start: "top top",
-            end: "bottom top",
-            scrub: true,
+            end: "+=1350",
+            scrub: 0.7,
+            pin: true,
+            anticipatePin: 1,
           },
         });
-      }
 
-      if (ghost) {
-        gsap.fromTo(ghost, { autoAlpha: 0 }, { autoAlpha: 0.22, duration: 0.8, delay: 0.65 });
-        gsap.to(ghost, {
-          xPercent: 18,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+        mergeTimeline
+          .to(words, {
+            xPercent: (index) => [8, 3, 0, -3, -8][index] || 0,
+            letterSpacing: "0.04em",
+            color: "rgba(255,255,255,0.98)",
+            ease: "none",
+            duration: 0.58,
+          })
+          .to(
+            cta,
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "none",
+              duration: 0.28,
+            },
+            0.18,
+          )
+          .to(
+            media,
+            {
+              scale: 1.04,
+              autoAlpha: 0.52,
+              filter: "blur(1px)",
+              ease: "none",
+              duration: 0.58,
+            },
+            0,
+          )
+          .to(
+            title,
+            {
+              autoAlpha: 0.42,
+              scale: 0.94,
+              ease: "none",
+              duration: 0.22,
+            },
+            0.72,
+          );
       }
 
       gsap.fromTo(
-        [cta, scrollLabel].filter(Boolean),
+        [scrollLabel].filter(Boolean),
         { autoAlpha: 0, y: 120 },
         { autoAlpha: 1, y: 0, duration: 1, stagger: 0.16, delay: 1.05, ease: "power3.out" },
       );

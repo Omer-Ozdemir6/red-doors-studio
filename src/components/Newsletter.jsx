@@ -3,13 +3,13 @@ function Newsletter() {
     <section
       data-scroll
       data-scroll-call="newsletter"
-      data-scroll-repeat="true"
+      data-scroll-repeat="false"
       data-scroll-progress
       className="progress-section relative overflow-hidden border-y border-white/10 bg-[#080303] px-5 py-24 md:px-10 md:py-32"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(145,0,0,0.28),transparent_38%)]" />
       <div className="relative mx-auto grid max-w-[1500px] gap-10 md:grid-cols-[1fr_0.85fr] md:items-end">
-        <div data-reveal>
+        <div data-reveal data-reveal-style="type">
           <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-red-600">
             Stay Connected
           </p>
@@ -18,7 +18,12 @@ function Newsletter() {
           </h2>
         </div>
 
-        <form data-reveal data-reveal-delay="0.14" className="space-y-4">
+        <form
+          data-reveal
+          data-reveal-style="form"
+          data-reveal-delay="0.18"
+          className="space-y-4"
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <input
               type="text"

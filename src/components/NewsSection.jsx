@@ -5,7 +5,10 @@ function NewsSection() {
   return (
     <section id="news" className="bg-black py-24 md:py-32">
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
-        <SectionReveal className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <SectionReveal
+          style="type"
+          className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+        >
           <div>
             <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-red-600">
               Latest News
@@ -27,6 +30,7 @@ function NewsSection() {
           {news.map((item) => (
             <article
               data-reveal
+              data-reveal-style="row"
               key={item.id}
               className="group grid gap-6 py-8 transition hover:bg-white/[0.03] md:grid-cols-[0.35fr_1fr_0.2fr] md:px-6"
             >

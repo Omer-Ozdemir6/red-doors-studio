@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SplitText from "./SplitText";
 
 const menuLinks = [
@@ -12,6 +12,7 @@ const menuLinks = [
 
 function Navbar({ soundEnabled, setSoundEnabled }) {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [scrollState, setScrollState] = useState({
     direction: "up",
     min: false,
@@ -24,21 +25,44 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
     return () => window.removeEventListener("redDoors:scroll", onScroll);
   }, []);
 
+  const openMenu = useCallback(() => {
+    setClosing(false);
+    setOpen(true);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    if (!open) return;
+    setOpen(false);
+    setClosing(true);
+    window.setTimeout(() => {
+      setClosing(false);
+      window.redDoorsAnimation?.scroll?.start?.();
+    }, 850);
+  }, [open]);
+
+  const toggleMenu = useCallback(() => {
+    if (open) closeMenu();
+    else openMenu();
+  }, [closeMenu, open, openMenu]);
+
   useEffect(() => {
     document.body.classList.toggle("--js-site-nav-opened", open);
-    window.redDoorsAnimation?.scroll?.[open ? "stop" : "start"]?.();
+    document.body.classList.toggle("--js-site-nav-closing", closing);
+
+    if (open) window.redDoorsAnimation?.scroll?.stop?.();
+    else if (!closing) window.redDoorsAnimation?.scroll?.start?.();
 
     const onKeyDown = (event) => {
-      if (event.key === "Escape" || event.key === "Esc") setOpen(false);
+      if (event.key === "Escape" || event.key === "Esc") closeMenu();
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.classList.remove("--js-site-nav-opened");
+      document.body.classList.remove("--js-site-nav-opened", "--js-site-nav-closing");
       window.redDoorsAnimation?.scroll?.start?.();
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open]);
+  }, [open, closing, closeMenu]);
 
   const hiddenByScroll = scrollState.min && scrollState.direction === "down" && !open;
 
@@ -87,7 +111,7 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
             type="button"
             aria-expanded={open}
             aria-controls="site-nav"
-            onClick={() => setOpen((value) => !value)}
+            onClick={toggleMenu}
             className="group flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-zinc-200"
           >
             <span>{open ? "Close" : "Menu"}</span>
@@ -103,7 +127,7 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
         aria-hidden={!open}
         className={`site-nav-panel fixed inset-0 z-40 bg-black/95 px-5 pb-10 pt-28 text-white md:px-10 ${
           open ? "is-open" : ""
-        }`}
+        } ${closing ? "is-closing" : ""}`}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(150,0,0,0.28),transparent_35%)]" />
         <div className="absolute inset-0 scanlines opacity-25" />
@@ -114,7 +138,7 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
                 data-glitch
                 key={label}
                 href={href}
-                onClick={() => setOpen(false)}
+                onClick={closeMenu}
                 className="site-nav-link border-b border-white/10 py-4 text-5xl font-black uppercase leading-none transition hover:text-red-600 md:text-8xl"
                 style={{ "--nav-index": index }}
               >
@@ -124,10 +148,10 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
           </nav>
 
           <div className="flex flex-col justify-end gap-8 text-xs font-black uppercase tracking-[0.24em] text-zinc-500">
-            <a data-glitch href="#games" onClick={() => setOpen(false)} className="glitch-link hover:text-white">
+            <a data-glitch href="#games" onClick={closeMenu} className="glitch-link hover:text-white">
               Games
             </a>
-            <a data-glitch href="#contact" onClick={() => setOpen(false)} className="glitch-link hover:text-white">
+            <a data-glitch href="#contact" onClick={closeMenu} className="glitch-link hover:text-white">
               Support
             </a>
             <div className="grid grid-cols-2 gap-3">

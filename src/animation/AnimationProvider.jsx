@@ -9,6 +9,8 @@ import GlitchManager from "./GlitchManager";
 import ScrollProgressManager from "./ScrollProgressManager";
 import VideoManager from "./VideoManager";
 import Mill3CompatManager from "./Mill3CompatManager";
+import FooterManager from "./FooterManager";
+import AboutHighlightManager from "./AboutHighlightManager";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,10 +21,12 @@ function AnimationProvider({ children }) {
       scroll,
       new Mill3CompatManager(),
       new HeroManager(),
+      new AboutHighlightManager(),
       new RevealManager(),
       new ScrollProgressManager(),
       new GamePanelsManager(),
       new VideoManager(),
+      new FooterManager(),
       new GlitchManager(),
     ];
 

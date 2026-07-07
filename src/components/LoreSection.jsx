@@ -7,7 +7,7 @@ function LoreSection() {
       id="lore"
       data-scroll
       data-scroll-call="lore"
-      data-scroll-repeat="true"
+      data-scroll-repeat="false"
       data-scroll-progress
       className="progress-section relative overflow-hidden bg-[#060606] px-5 py-24 md:px-10 md:py-32"
     >
@@ -23,7 +23,10 @@ function LoreSection() {
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.98),rgba(0,0,0,0.78)_58%,rgba(0,0,0,0.95))]" />
       <div className="absolute inset-0 scanlines opacity-25" />
 
-      <SectionReveal className="relative mx-auto grid max-w-[1600px] gap-10 md:grid-cols-[0.35fr_0.65fr] md:items-start">
+      <SectionReveal
+        style="row"
+        className="relative mx-auto grid max-w-[1600px] gap-10 md:grid-cols-[0.35fr_0.65fr] md:items-start"
+      >
         <div>
           <p className="mb-5 text-xs font-black uppercase tracking-[0.35em] text-red-600">
             Lore Files
@@ -35,12 +38,12 @@ function LoreSection() {
 
         <div className="max-w-4xl space-y-6 text-lg leading-8 text-zinc-300">
           <p>
-            Red Doors evrenindeki dosyalar, sınır kayıtları, kayıp sinyaller ve
-            laboratuvar notları oyunların dışında da hikayeyi büyütür.
+            Red Doors evrenindeki dosyalar, sinir kayitlari, kayip sinyaller ve
+            laboratuvar notlari oyunlarin disinda da hikayeyi buyutur.
           </p>
           <p>
-            Her proje kendi arşivini açar: bazı kapılar tanıklık ister, bazıları
-            sadece dinlenmek ister.
+            Her proje kendi arsivini acar: bazi kapilar taniklik ister,
+            bazilari sadece dinlenmek ister.
           </p>
           <a
             data-glitch

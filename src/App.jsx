@@ -9,13 +9,16 @@ import NewsSection from "./components/NewsSection";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import AnimationProvider from "./animation/AnimationProvider";
+import BootIntro from "./components/BootIntro";
 
 function App() {
   const [entered, setEntered] = useState(() => localStorage.getItem("ageGate") === "1");
+  const [booting, setBooting] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const enterSite = () => {
     localStorage.setItem("ageGate", "1");
     setEntered(true);
+    setBooting(true);
   };
 
   if (!entered) {
@@ -38,32 +41,36 @@ function App() {
 
           <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row">
             <button
+              data-glitch
               type="button"
               onClick={enterSite}
-              className="min-h-14 w-full border border-red-700 bg-red-700 px-8 text-xs font-black uppercase tracking-[0.32em] text-white transition hover:bg-red-800 sm:w-1/2"
+              className="glitch-link min-h-14 w-full border border-red-700 bg-red-700 px-8 text-xs font-black uppercase tracking-[0.32em] text-white transition hover:bg-red-800 sm:w-1/2"
             >
-              Yes
+              Enter
             </button>
             <button
+              data-glitch
               type="button"
-              className="min-h-14 w-full border border-white/15 px-8 text-xs font-black uppercase tracking-[0.32em] text-zinc-400 transition hover:border-white/40 hover:text-white sm:w-1/2"
+              className="glitch-link min-h-14 w-full border border-white/15 px-8 text-xs font-black uppercase tracking-[0.32em] text-zinc-400 transition hover:border-white/40 hover:text-white sm:w-1/2"
             >
-              No
+              Exit
             </button>
           </div>
 
           <div className="mx-auto flex w-full max-w-xl flex-col gap-3 border-t border-white/10 pt-8 text-xs font-black uppercase tracking-[0.24em] text-zinc-500 sm:flex-row sm:items-center sm:justify-center">
             <button
+              data-glitch
               type="button"
               onClick={() => setSoundEnabled(true)}
-              className={`transition hover:text-white ${soundEnabled ? "text-white" : ""}`}
+              className={`glitch-link transition hover:text-white ${soundEnabled ? "text-white" : ""}`}
             >
               [ On ] Launch with sound
             </button>
             <button
+              data-glitch
               type="button"
               onClick={() => setSoundEnabled(false)}
-              className={`transition hover:text-white ${!soundEnabled ? "text-white" : ""}`}
+              className={`glitch-link transition hover:text-white ${!soundEnabled ? "text-white" : ""}`}
             >
               [ Off ] Launch with sound
             </button>
@@ -75,6 +82,7 @@ function App() {
 
   return (
     <main className="min-h-screen bg-black text-white selection:bg-red-700 selection:text-white">
+      {booting && <BootIntro onComplete={() => setBooting(false)} />}
       <AnimationProvider>
         <Navbar soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} />
         <Hero />

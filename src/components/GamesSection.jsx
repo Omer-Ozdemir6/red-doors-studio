@@ -1,7 +1,20 @@
+import { useState } from "react";
 import { games } from "../data/games";
 
 function GamePanel({ game, index }) {
   const reversed = index % 2 === 1;
+  const [leaving, setLeaving] = useState(false);
+  const gameUrl = `/games/${game.id}/`;
+
+  const openGame = (event) => {
+    event.preventDefault();
+    if (leaving) return;
+
+    setLeaving(true);
+    window.setTimeout(() => {
+      window.location.href = gameUrl;
+    }, 320);
+  };
 
   return (
     <article
@@ -11,7 +24,7 @@ function GamePanel({ game, index }) {
       data-scroll-progress
       data-scroll-repeat="false"
       id={game.id}
-      className="game-showcase group relative min-h-[125vh] overflow-hidden bg-black"
+      className={`game-showcase group relative overflow-hidden bg-black ${leaving ? "is-leaving" : ""}`}
     >
       <img
         data-game-bg
@@ -22,6 +35,13 @@ function GamePanel({ game, index }) {
         alt=""
         className="game-showcase-bg absolute left-0 top-0 h-[72vh] w-full object-cover"
       />
+      <div className="game-page-preview" aria-hidden="true">
+        <img src={game.image} alt="" />
+        <div className="game-page-preview-copy">
+          <span>{game.genre}</span>
+          <strong>{game.title}</strong>
+        </div>
+      </div>
       <div data-game-bg-shade className="game-showcase-shade absolute inset-0" />
       <div className="absolute inset-0 scanlines opacity-15" />
 
@@ -31,48 +51,41 @@ function GamePanel({ game, index }) {
             reversed ? "md:[direction:rtl]" : ""
           }`}
         >
-          <div className={`relative ${reversed ? "md:[direction:ltr]" : ""}`}>
-            <div
-              data-game-media
-              className="game-media-card aspect-[16/10] w-full max-w-3xl overflow-hidden bg-zinc-950"
-            >
-              <img
-                data-game-poster
-                src={game.image}
-                alt=""
-                className="h-[116%] w-full object-cover opacity-80"
-              />
-              <div className="absolute inset-0 bg-black/10" />
-            </div>
-          </div>
+          <a
+            href={gameUrl}
+            data-game-media
+            className={`game-media-card aspect-[16/10] w-full max-w-3xl overflow-hidden bg-zinc-950 ${
+              reversed ? "md:[direction:ltr]" : ""
+            }`}
+          >
+            <img
+              data-game-poster
+              src={game.image}
+              alt=""
+              className="h-[116%] w-full object-cover opacity-95"
+            />
+            <span className="game-media-hint">Open</span>
+          </a>
 
           <div
             data-game-copy
             className={`rb-game-copy max-w-2xl pb-8 ${reversed ? "md:[direction:ltr]" : ""}`}
           >
-            <p
-              data-game-eyebrow
-              className="type-reveal rb-game-eyebrow mb-8"
-            >
+            <p data-game-eyebrow className="type-reveal rb-game-eyebrow mb-8">
               {game.tagline}
             </p>
-            <h3
-              data-game-heading
-              className="rb-game-title mb-8"
-            >
+            <h3 data-game-heading className="rb-game-title mb-8">
               {game.title}
             </h3>
-            <p
-              data-game-description
-              className="rb-game-description mb-8 max-w-xl"
-            >
+            <p data-game-description className="rb-game-description mb-8 max-w-xl">
               {game.description}
             </p>
             <a
               data-game-link
               data-glitch
-              href={`#${game.id}`}
-              className="glitch-link rb-game-link inline-flex items-center gap-3"
+              href={gameUrl}
+              onClick={openGame}
+              className="game-open-trigger glitch-link rb-game-link inline-flex items-center gap-3"
             >
               <span className="text-red-600">[</span>
               Learn more
@@ -87,7 +100,7 @@ function GamePanel({ game, index }) {
 
 function GamesSection() {
   return (
-    <section id="games" className="bg-black">
+    <section id="games" className="relative z-10 bg-black">
       {games.map((game, index) => (
         <GamePanel key={game.id} game={game} index={index} />
       ))}

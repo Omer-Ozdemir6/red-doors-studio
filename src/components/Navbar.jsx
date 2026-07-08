@@ -2,15 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import SplitText from "./SplitText";
 
 const menuLinks = [
-  ["About", "#about"],
-  ["News", "#news"],
-  ["Careers", "#careers"],
-  ["Lore", "#lore"],
-  ["Store", "#games"],
-  ["Contact", "#contact"],
+  ["Oyunlar", "/#games"],
+  ["Hakkında", "/#about"],
+  ["İletişim", "/#contact"],
 ];
 
-function Navbar({ soundEnabled, setSoundEnabled }) {
+function Navbar() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [scrollState, setScrollState] = useState({
@@ -76,7 +73,7 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
         <div className="mx-auto flex max-w-[1600px] items-center justify-between">
           <a
             data-glitch
-            href="#"
+            href="/"
             className={`glitch-link font-black uppercase tracking-[0.36em] transition-all duration-500 ${
               scrollState.logoMin ? "text-xs md:text-sm" : "text-sm md:text-base"
             }`}
@@ -85,24 +82,16 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
           </a>
 
           <div className="hidden items-center gap-8 text-xs font-black uppercase tracking-[0.22em] text-zinc-300 lg:flex">
-            <button
-              data-glitch
-              type="button"
-              onClick={() => setSoundEnabled((value) => !value)}
-              className="glitch-link transition hover:text-white"
-            >
-              Sound {soundEnabled ? "On" : "Off"}
-            </button>
-            <div className="flex items-center gap-2">
+            <div className="nav-top-item flex items-center gap-2" style={{ "--top-nav-index": 0 }}>
               <span className="text-white">En</span>
               <span className="text-zinc-600">/</span>
               <span>Tr</span>
             </div>
-            <a data-glitch href="#games" className="glitch-link transition hover:text-white">
-              Games
+            <a data-glitch href="/#games" className="nav-top-item glitch-link transition hover:text-white" style={{ "--top-nav-index": 1 }}>
+              Oyunlar
             </a>
-            <a data-glitch href="#games" className="glitch-link transition hover:text-white">
-              Store -&gt;
+            <a data-glitch href="/#contact" className="nav-top-item glitch-link transition hover:text-white" style={{ "--top-nav-index": 2 }}>
+              İletişim
             </a>
           </div>
 
@@ -114,7 +103,7 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
             onClick={toggleMenu}
             className="group flex items-center gap-3 text-xs font-black uppercase tracking-[0.28em] text-zinc-200"
           >
-            <span>{open ? "Close" : "Menu"}</span>
+            <span>{open ? "Kapat" : "Menu"}</span>
             <span className="grid h-10 w-10 place-items-center border border-white/20 transition group-hover:border-red-700">
               {open ? "x" : "+"}
             </span>
@@ -148,19 +137,12 @@ function Navbar({ soundEnabled, setSoundEnabled }) {
           </nav>
 
           <div className="flex flex-col justify-end gap-8 text-xs font-black uppercase tracking-[0.24em] text-zinc-500">
-            <a data-glitch href="#games" onClick={closeMenu} className="glitch-link hover:text-white">
-              Games
+            <a data-glitch href="/#games" onClick={closeMenu} className="glitch-link hover:text-white">
+              Oyunlar
             </a>
-            <a data-glitch href="#contact" onClick={closeMenu} className="glitch-link hover:text-white">
-              Support
+            <a data-glitch href="/#contact" onClick={closeMenu} className="glitch-link hover:text-white">
+              İletişim
             </a>
-            <div className="grid grid-cols-2 gap-3">
-              {["Facebook", "X", "Instagram", "Discord", "LinkedIn", "YouTube"].map((item) => (
-                <a data-glitch key={item} href="#contact" className="glitch-link hover:text-white">
-                  {item}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </aside>

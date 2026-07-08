@@ -23,10 +23,10 @@ function About() {
 
         <SectionReveal delay={0.15} className="md:justify-self-center">
           <p className="about-terminal-copy max-w-[760px] text-center font-mono text-base font-black leading-[1.2] text-white md:text-lg xl:text-xl">
-            <span className="about-highlight" data-highlight-fill data-text="Red Doors">Red Doors</span> is an independent studio
+            <span className="about-highlight" data-underline-fill>Red Doors</span> is an independent studio
             building cinematic horror experiences. Our mission is to create
             unforgettable worlds that leave the player&apos;s{" "}
-            <span className="about-highlight" data-highlight-fill data-text="blood running cold.">blood running cold.</span>
+            <span className="about-highlight" data-underline-fill>blood running cold.</span>
           </p>
         </SectionReveal>
       </div>

@@ -1,5 +1,5 @@
 const games = ["Sinir-1", "Project Echo", "Red Doors Archive"];
-const studioLinks = ["About", "Careers", "Job Listing", "Comic Books"];
+const studioLinks = ["About", "Careers"];
 const supportLinks = ["News", "Support", "Store ->", "Contact"];
 const socials = ["FB", "X", "IG", "DC", "IN", "YT"];
 
@@ -13,13 +13,13 @@ function Footer() {
       data-scroll
       data-scroll-call="site-footer"
       data-scroll-repeat="false"
-      className="site-footer relative overflow-hidden bg-black px-5 py-20 text-white md:px-10"
+      className="site-footer relative overflow-hidden bg-black px-5 py-16 text-white md:px-10 md:py-20"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-white/25" />
-      <div className="relative mx-auto grid min-h-[48vh] max-w-[1680px] gap-12 md:grid-cols-[0.34fr_0.34fr_0.16fr_0.16fr]">
+      <div className="relative mx-auto grid max-w-[1680px] gap-12 md:min-h-[38vh] md:grid-cols-[0.34fr_0.34fr_0.16fr_0.16fr]">
         <div data-footer-group className="flex flex-col justify-end gap-6">
           <p data-footer-item data-footer-delay="0" className="text-base font-black text-zinc-300">
-            Don&apos;t be scared. Follow us.
+            The signal is louder in the dark.
           </p>
           <div className="flex items-center gap-5 text-sm font-black text-white">
             {socials.map((item, index) => (
@@ -53,20 +53,6 @@ function Footer() {
               </a>
             ))}
           </nav>
-          <div className="mt-24 grid gap-4 font-mono text-sm text-zinc-400">
-            {["Privacy Policy | Terms and Conditions", "Cookies preferences"].map((item, index) => (
-              <a
-                data-footer-item
-                data-footer-delay={delay(index + 4)}
-                data-glitch
-                href="#contact"
-                className="glitch-link footer-link"
-                key={item}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
         </div>
 
         <div data-footer-group>
@@ -111,7 +97,7 @@ function Footer() {
             ))}
           </nav>
           <p data-footer-item data-footer-delay="0.48" className="mt-32 font-mono text-sm text-zinc-400">
-            [En] Fr
+            [En] Tr
           </p>
         </div>
       </div>

@@ -43,10 +43,8 @@ class HeroManager {
         gsap.fromTo(cinema, { autoAlpha: 0 }, { autoAlpha: 0.72, duration: 1.2, delay: 0.3, ease: "linear" });
         gsap.to(cinema, {
           backgroundPosition: "72% 42%, 18% 70%, 50% 50%",
-          duration: 9,
+          duration: 4.2,
           ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
         });
         gsap.to(cinema, {
           autoAlpha: 0.3,
@@ -65,9 +63,7 @@ class HeroManager {
         gsap.to(sweep, {
           xPercent: 120,
           autoAlpha: 0.18,
-          duration: 7,
-          repeat: -1,
-          repeatDelay: 2.5,
+          duration: 3.8,
           ease: "sine.inOut",
         });
       }
@@ -77,7 +73,7 @@ class HeroManager {
         gsap.to(distortion, {
           x: 18,
           duration: 0.12,
-          repeat: -1,
+          repeat: 8,
           yoyo: true,
           ease: "steps(1)",
         });
@@ -86,15 +82,16 @@ class HeroManager {
       if (title && words.length) {
         gsap.fromTo(
           words,
-          { autoAlpha: 0, y: 44, filter: "blur(10px)" },
+          { autoAlpha: 0, x: -28, filter: "blur(8px)", clipPath: "inset(0 100% 0 0)" },
           {
             autoAlpha: 1,
-            y: 0,
+            x: 0,
             filter: "blur(0px)",
-            duration: 0.9,
+            clipPath: "inset(0 0% 0 0)",
+            duration: 1.05,
             delay: 0.18,
-            stagger: 0.08,
-            ease: "expo.out",
+            stagger: 0.12,
+            ease: "power3.out",
           },
         );
 

@@ -2,12 +2,12 @@ import gsap from "gsap";
 
 class AboutHighlightManager {
   init() {
-    gsap.utils.toArray("[data-highlight-fill]").forEach((item) => {
+    gsap.utils.toArray("[data-underline-fill]").forEach((item) => {
       gsap.fromTo(
         item,
-        { "--highlight-progress": 0 },
+        { "--underline-progress": 0 },
         {
-          "--highlight-progress": 1,
+          "--underline-progress": 1,
           duration: 1.4,
           ease: "power2.out",
           scrollTrigger: {

@@ -10,11 +10,11 @@ import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import AnimationProvider from "./animation/AnimationProvider";
 import BootIntro from "./components/BootIntro";
+import GamePage from "./components/GamePage";
 
 function App() {
   const [entered, setEntered] = useState(() => localStorage.getItem("ageGate") === "1");
   const [booting, setBooting] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(true);
   const enterSite = () => {
     localStorage.setItem("ageGate", "1");
     setEntered(true);
@@ -56,27 +56,16 @@ function App() {
               Exit
             </button>
           </div>
-
-          <div className="mx-auto flex w-full max-w-xl flex-col gap-3 border-t border-white/10 pt-8 text-xs font-black uppercase tracking-[0.24em] text-zinc-500 sm:flex-row sm:items-center sm:justify-center">
-            <button
-              data-glitch
-              type="button"
-              onClick={() => setSoundEnabled(true)}
-              className={`glitch-link transition hover:text-white ${soundEnabled ? "text-white" : ""}`}
-            >
-              [ On ] Launch with sound
-            </button>
-            <button
-              data-glitch
-              type="button"
-              onClick={() => setSoundEnabled(false)}
-              className={`glitch-link transition hover:text-white ${!soundEnabled ? "text-white" : ""}`}
-            >
-              [ Off ] Launch with sound
-            </button>
-          </div>
         </section>
       </main>
+    );
+  }
+
+  if (window.location.pathname.startsWith("/games/")) {
+    return (
+      <AnimationProvider>
+        <GamePage />
+      </AnimationProvider>
     );
   }
 
@@ -84,7 +73,7 @@ function App() {
     <main className="min-h-screen bg-black text-white selection:bg-red-700 selection:text-white">
       {booting && <BootIntro onComplete={() => setBooting(false)} />}
       <AnimationProvider>
-        <Navbar soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} />
+        <Navbar />
         <Hero />
         <About />
         <GamesSection />

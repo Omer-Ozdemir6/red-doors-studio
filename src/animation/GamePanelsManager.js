@@ -58,9 +58,9 @@ class GamePanelsManager {
       if (poster) {
         gsap.fromTo(
           poster,
-          { scale: 1.14, yPercent: -8, filter: "blur(10px)" },
+          { scale: 1.08, yPercent: -6, filter: "blur(1px)" },
           {
-            scale: 1.02,
+            scale: 1,
             yPercent: 8,
             filter: "blur(0px)",
             ease: "none",

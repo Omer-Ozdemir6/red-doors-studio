@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { games } from "../data/games";
+import { useRouter } from "../core/RouterContext";
 
 function StoreBadge({ label }) {
   return (
@@ -15,7 +16,8 @@ function StoreBadge({ label }) {
 }
 
 function GamePage() {
-  const slug = window.location.pathname.split("/").filter(Boolean).at(-1);
+  const { currentPath } = useRouter();
+  const slug = currentPath.split("/").filter(Boolean).at(-1);
   const game = games.find((item) => item.id === slug) || games[0];
 
   return (

@@ -1,3 +1,5 @@
+const GLITCH_SYMBOLS = ["@", "#", "$", "%", "&", "X", "0", "Ø", "§", "?", "*", "!", "+", "="];
+
 class GlitchManager {
   constructor() {
     this.items = [];
@@ -14,7 +16,12 @@ class GlitchManager {
   destroy() {
     this.items.forEach(({ el, onEnter }) => {
       el.removeEventListener("mouseenter", onEnter);
-      el.querySelectorAll(".--glitching").forEach((char) => char.classList.remove("--glitching"));
+      el.querySelectorAll(".--glitching").forEach((char) => {
+        char.classList.remove("--glitching");
+        if (char.dataset.origChar) {
+          char.textContent = char.dataset.origChar;
+        }
+      });
     });
     this.items = [];
   }
@@ -29,10 +36,39 @@ class GlitchManager {
       return;
     }
 
-    const shuffled = chars.sort(() => Math.random() - 0.5).slice(0, 7);
+    // Glitch a subset of characters
+    const count = Math.min(chars.length, 6);
+    const shuffled = chars.sort(() => Math.random() - 0.5).slice(0, count);
+
     shuffled.forEach((char, index) => {
-      window.setTimeout(() => char.classList.add("--glitching"), index * 55);
-      window.setTimeout(() => char.classList.remove("--glitching"), index * 55 + 180);
+      const origText = char.textContent;
+      char.dataset.origChar = origText;
+
+      const delay = index * 45;
+      const duration = 150 + Math.random() * 150;
+
+      // Start glitch
+      window.setTimeout(() => {
+        char.classList.add("--glitching");
+        
+        // Rapidly shuffle characters during glitch duration
+        let intervalCount = 0;
+        const interval = window.setInterval(() => {
+          char.textContent = GLITCH_SYMBOLS[Math.floor(Math.random() * GLITCH_SYMBOLS.length)];
+          intervalCount++;
+          if (intervalCount > 4) {
+            window.clearInterval(interval);
+          }
+        }, 30);
+
+        // Stop glitch and restore original character
+        window.setTimeout(() => {
+          window.clearInterval(interval);
+          char.classList.remove("--glitching");
+          char.textContent = origText;
+        }, duration);
+
+      }, delay);
     });
   }
 }

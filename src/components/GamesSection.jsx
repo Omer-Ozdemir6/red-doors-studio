@@ -1,19 +1,14 @@
-import { useState } from "react";
 import { games } from "../data/games";
+import { useRouter } from "../core/RouterContext";
 
 function GamePanel({ game, index }) {
   const reversed = index % 2 === 1;
-  const [leaving, setLeaving] = useState(false);
+  const { navigate, isTransitioning } = useRouter();
   const gameUrl = `/games/${game.id}/`;
 
   const openGame = (event) => {
     event.preventDefault();
-    if (leaving) return;
-
-    setLeaving(true);
-    window.setTimeout(() => {
-      window.location.href = gameUrl;
-    }, 320);
+    navigate(gameUrl);
   };
 
   return (
@@ -24,7 +19,7 @@ function GamePanel({ game, index }) {
       data-scroll-progress
       data-scroll-repeat="false"
       id={game.id}
-      className={`game-showcase group relative overflow-hidden bg-black ${leaving ? "is-leaving" : ""}`}
+      className={`game-showcase group relative overflow-hidden bg-black ${isTransitioning ? "is-leaving" : ""}`}
     >
       <img
         data-game-bg

@@ -3,7 +3,7 @@ import SplitText from "./SplitText";
 
 const menuLinks = [
   ["Oyunlar", "/#games"],
-  ["Hakkında", "/#about"],
+  ["Hakkında", "/about"],
   ["İletişim", "/#contact"],
 ];
 

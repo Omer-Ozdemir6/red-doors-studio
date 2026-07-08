@@ -86,13 +86,16 @@ class ScrollManager {
   }
 
   _onAnchorClick(event) {
-    const anchor = event.target.closest('a[href^="#"]');
+    const anchor = event.target.closest('a[href^="#"], a[href^="/#"]');
     if (!anchor || !this.lenis) return;
 
     const href = anchor.getAttribute("href");
-    if (!href || href === "#") return;
+    if (!href || href === "#" || href === "/#") return;
 
-    const target = document.querySelector(href);
+    const hash = href.includes("#") ? href.substring(href.indexOf("#")) : "";
+    if (!hash) return;
+
+    const target = document.querySelector(hash);
     if (!target) return;
 
     event.preventDefault();

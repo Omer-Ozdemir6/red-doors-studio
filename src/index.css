@@ -922,3 +922,32 @@ a {
     transform: translate3d(-50%, 0, 0);
   }
 }
+
+/* Custom Swiper Styles */
+.lore-swiper {
+  --swiper-navigation-color: #ef4444;
+  --swiper-navigation-size: 20px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 44px !important;
+  height: 44px !important;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  border-color: #ef4444;
+  color: white !important;
+  background-color: #ef4444;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 14px !important;
+  font-weight: 900;
+}

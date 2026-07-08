@@ -62,7 +62,7 @@ function Footer() {
                 data-footer-item
                 data-footer-delay={delay(index + 2)}
                 data-glitch
-                href="#about"
+                href={item === "About" ? "/about" : "#contact"}
                 className="glitch-link footer-link"
                 key={item}
               >
